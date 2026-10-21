@@ -20,8 +20,8 @@ import { COURSES } from "@/data/courses";
 import { enquirySchema, submitEnquiry } from "@/lib/enquiry.functions";
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    course: typeof search.course === "string" ? search.course : undefined,
+  validateSearch: (search: { course?: string }) => ({
+    course: search.course,
   }),
   head: () => ({
     meta: [
@@ -59,6 +59,14 @@ interface FormState {
   message: string;
 }
 
+/** Validation errors keyed by form field. */
+interface FieldErrors {
+  name?: string;
+  mobile?: string;
+  course?: string;
+  message?: string;
+}
+
 function ContactPage() {
   const { course: preselected } = Route.useSearch();
   const preselectedTitle =
@@ -70,7 +78,7 @@ function ContactPage() {
     course: preselectedTitle,
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
   const [formError, setFormError] = useState("");
 
@@ -86,10 +94,13 @@ function ContactPage() {
     // Client-side validation (the server validates again on its side).
     const parsed = enquirySchema.safeParse(form);
     if (!parsed.success) {
-      const fieldErrors: Record<string, string> = {};
+      const fieldErrors: FieldErrors = {};
       for (const issue of parsed.error.issues) {
-        const key = String(issue.path[0] ?? "form");
-        if (!fieldErrors[key]) fieldErrors[key] = issue.message;
+        const key = issue.path[0];
+        if (key === "name" && !fieldErrors.name) fieldErrors.name = issue.message;
+        else if (key === "mobile" && !fieldErrors.mobile) fieldErrors.mobile = issue.message;
+        else if (key === "course" && !fieldErrors.course) fieldErrors.course = issue.message;
+        else if (key === "message" && !fieldErrors.message) fieldErrors.message = issue.message;
       }
       setErrors(fieldErrors);
       return;

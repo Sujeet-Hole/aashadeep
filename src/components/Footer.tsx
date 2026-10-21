@@ -59,7 +59,7 @@ export function Footer() {
             Ashadeep Computer Institute.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/contact" className="btn-primary">
+            <Link to="/contact" search={{}} className="btn-primary">
               Enquire for Admission
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
