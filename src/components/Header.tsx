@@ -45,7 +45,7 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Link to="/contact" className="btn-primary ml-2 !px-5 !py-2.5">
+          <Link to="/contact" search={{ course: "" }} className="btn-primary ml-2 !px-5 !py-2.5">
             Enquire Now
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
@@ -86,6 +86,7 @@ export function Header() {
           </ul>
           <Link
             to="/contact"
+            search={{ course: "" }}
             onClick={() => setOpen(false)}
             className="btn-primary mt-3 w-full sm:w-auto"
           >

@@ -80,7 +80,7 @@ function HomePage() {
                 Explore Our Courses
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link to="/contact" className="btn-outline-white">
+              <Link to="/contact" search={{ course: "" }} className="btn-outline-white">
                 Enquire for Admission
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
