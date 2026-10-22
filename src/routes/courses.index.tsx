@@ -80,7 +80,7 @@ function CoursesPage() {
         </div>
 
         <Reveal delay={100}>
-          <Link to="/contact" className="btn-primary mt-10 w-full justify-center sm:w-auto">
+          <Link to="/contact" search={{}} className="btn-primary mt-10 w-full justify-center sm:w-auto">
             Enquire for Course Details
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
