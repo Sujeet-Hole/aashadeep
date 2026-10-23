@@ -163,9 +163,9 @@
 }
 
 @layer components {
-  /* Page container */
+  /* Page container — fills the whole screen width on every device */
   .container-site {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-10 xl:px-16;
   }
 
   /* Primary green pill button with arrow */
@@ -197,18 +197,110 @@
     @apply w-full rounded-xl border border-input bg-white px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-brand focus:ring-2 focus:ring-brand/25;
   }
 
-  /* Scroll reveal animation (paired with the <Reveal /> component) */
+  /* Scroll reveal animations (paired with the <Reveal /> component).
+     Each direction slides its content in from a different side. */
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
     transition:
       opacity 0.7s ease,
-      transform 0.7s ease;
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
+  }
+
+  .reveal-up {
+    transform: translateY(32px);
+  }
+
+  .reveal-down {
+    transform: translateY(-32px);
+  }
+
+  .reveal-left {
+    transform: translateX(-56px);
+  }
+
+  .reveal-right {
+    transform: translateX(56px);
+  }
+
+  .reveal-zoom {
+    transform: scale(0.92);
   }
 
   .reveal-visible {
     opacity: 1;
     transform: none;
+  }
+
+  /* One-shot entrance animations for hero / page-title text (runs on load). */
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-44px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(44px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .anim-rise,
+  .anim-slide-left,
+  .anim-slide-right {
+    opacity: 0;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: forwards;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+
+  .anim-rise {
+    animation-name: rise-in;
+  }
+
+  .anim-slide-left {
+    animation-name: slide-in-left;
+  }
+
+  .anim-slide-right {
+    animation-name: slide-in-right;
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none;
+    }
+
+    .anim-rise,
+    .anim-slide-left,
+    .anim-slide-right {
+      opacity: 1 !important;
+      animation: none !important;
+    }
   }
 }

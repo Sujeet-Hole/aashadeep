@@ -1,10 +1,11 @@
-// Gallery page: filter tabs, photo grid and a simple lightbox.
+// Gallery page: filter tabs, uniform photo grid and a simple lightbox.
+// Every photo shares the same 4:3 frame so the grid stays perfectly even.
 
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
-import { Reveal } from "@/components/Reveal";
+import { Reveal, type RevealDirection } from "@/components/Reveal";
 import { GALLERY, GALLERY_FILTERS, type GalleryPhoto } from "@/data/site";
 
 export const Route = createFileRoute("/gallery")({
@@ -29,8 +30,8 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-/** Alternating aspect ratios give the grid a masonry-like rhythm. */
-const ASPECTS = ["aspect-square", "aspect-[4/5]", "aspect-[4/3]", "aspect-[3/4]"];
+/** Photos alternate their entrance side for a lively scroll rhythm. */
+const DIRECTIONS: RevealDirection[] = ["left", "up", "right", "zoom"];
 
 function GalleryPage() {
   const [filter, setFilter] = useState<(typeof GALLERY_FILTERS)[number]>("All");
@@ -41,43 +42,51 @@ function GalleryPage() {
 
   return (
     <>
-      <PageHero title="Gallery" crumbs={[{ label: "Home", to: "/" }, { label: "Gallery" }]} />
+      <PageHero
+        title="Gallery"
+        subtitle="Moments from our classrooms, activities and student celebrations."
+        crumbs={[{ label: "Home", to: "/" }, { label: "Gallery" }]}
+      />
 
       <section className="container-site py-12 sm:py-16">
         {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Gallery filters">
-          {GALLERY_FILTERS.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              role="tab"
-              aria-selected={filter === tab}
-              onClick={() => setFilter(tab)}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-                filter === tab
-                  ? "bg-brand text-primary-foreground shadow-lg shadow-brand/25"
-                  : "bg-tint text-navy hover:bg-brand/15"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <Reveal direction="left">
+          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Gallery filters">
+            {GALLERY_FILTERS.map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={filter === tab}
+                onClick={() => setFilter(tab)}
+                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+                  filter === tab
+                    ? "bg-brand text-primary-foreground shadow-lg shadow-brand/25"
+                    : "bg-tint text-navy hover:bg-brand/15"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </Reveal>
 
-        {/* Photo grid */}
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+        {/* Photo grid — every photo uses the same 4:3 frame */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {photos.map((photo, i) => (
-            <Reveal key={photo.src} delay={(i % 6) * 50}>
+            <Reveal key={photo.src} delay={(i % 4) * 60} direction={DIRECTIONS[i % DIRECTIONS.length]}>
               <button
                 type="button"
                 onClick={() => setLightbox(photo)}
                 aria-label={`View photo: ${photo.alt}`}
-                className={`group block w-full overflow-hidden rounded-2xl shadow-sm transition-all duration-200 hover:shadow-xl ${ASPECTS[i % ASPECTS.length]}`}
+                className="group block aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
               >
                 <img
                   src={photo.src}
                   alt={photo.alt}
                   loading="lazy"
+                  width={1200}
+                  height={900}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </button>
@@ -85,14 +94,16 @@ function GalleryPage() {
           ))}
         </div>
 
-        <a
-          href="https://wa.me/919876543210"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary mt-10 w-full justify-center sm:w-auto"
-        >
-          View More Photos
-        </a>
+        <Reveal direction="up">
+          <a
+            href="https://wa.me/919876543210"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-10 w-full justify-center sm:w-auto"
+          >
+            View More Photos
+          </a>
+        </Reveal>
       </section>
 
       {/* Lightbox */}

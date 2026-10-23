@@ -1,4 +1,18 @@
 // Central site content: contact details, navigation, images, gallery and testimonials.
+// Photography is generated per-use and bundled locally — no image is reused
+// between sections, so every page shows unique visuals.
+
+import heroHome from "@/assets/hero-home.jpg";
+import aboutClassroom from "@/assets/about-classroom.jpg";
+import ctaCelebration from "@/assets/cta-celebration.jpg";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.jpg";
+import gallery8 from "@/assets/gallery-8.jpg";
 
 const unsplash = (id: string, w: number) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -40,12 +54,12 @@ export const NAV_LINKS: { label: string; to: AppRoute }[] = [
 ];
 
 export const IMAGES = {
-  /** Smiling student working at a computer lab desk. */
-  hero: unsplash("photo-1531482615713-2afd69097998", 1600),
-  /** Classroom full of students at computers. */
-  aboutClassroom: unsplash("photo-1524178232363-1fb2b075b655", 1400),
-  /** Students celebrating after a course / certification. */
-  ctaBackground: unsplash("photo-1523240795612-9a054b0db644", 1600),
+  /** Student working happily at a computer in a bright lab (home hero). */
+  hero: heroHome,
+  /** Classroom full of students at computers (about page). */
+  aboutClassroom,
+  /** Students celebrating after certification (footer CTA background). */
+  ctaBackground: ctaCelebration,
 };
 
 /* ---------------------------------- Gallery --------------------------------- */
@@ -62,44 +76,44 @@ export const GALLERY_FILTERS = ["All", "Classroom", "Activities", "Students"] as
 
 export const GALLERY: GalleryPhoto[] = [
   {
-    src: unsplash("photo-1524178232363-1fb2b075b655", 800),
-    alt: "Students learning together in the Ashadeep computer classroom",
+    src: gallery1,
+    alt: "Teacher explaining a Python concept at the whiteboard in the Ashadeep computer lab",
     category: "Classroom",
   },
   {
-    src: unsplash("photo-1523240795612-9a054b0db644", 800),
-    alt: "Students receiving their course completion certificates",
+    src: gallery2,
+    alt: "Instructor guiding a smiling student during a practical session at her computer",
+    category: "Classroom",
+  },
+  {
+    src: gallery3,
+    alt: "Students receiving their course completion certificate during a small ceremony",
     category: "Students",
   },
   {
-    src: unsplash("photo-1509062522246-3755977927d7", 800),
-    alt: "Teacher explaining a concept at the whiteboard",
-    category: "Classroom",
-  },
-  {
-    src: unsplash("photo-1517245386807-bb43f82c33c4", 800),
-    alt: "Instructor guiding students during a practical session",
-    category: "Classroom",
-  },
-  {
-    src: unsplash("photo-1522202176988-66273c1fd05b", 800),
-    alt: "Students practising on computers side by side",
+    src: gallery4,
+    alt: "Two students practising side by side on computers in the Ashadeep lab",
     category: "Students",
   },
   {
-    src: unsplash("photo-1519389950473-47ba0277781c", 800),
-    alt: "Group activity during a computer workshop",
+    src: gallery5,
+    alt: "Group of students collaborating around a laptop during a workshop activity",
     category: "Activities",
   },
   {
-    src: unsplash("photo-1552664730-d307ca884978", 800),
-    alt: "Team discussion during a practical training class",
+    src: gallery6,
+    alt: "Team discussion around a computer screen during a practical training class",
     category: "Activities",
   },
   {
-    src: unsplash("photo-1434030216411-0b793f4b4173", 800),
-    alt: "Student taking notes during a computer class",
+    src: gallery7,
+    alt: "Student taking notes in a notebook while following a computer lesson",
     category: "Students",
+  },
+  {
+    src: gallery8,
+    alt: "Wide view of the bright modern computer lab with rows of workstations",
+    category: "Classroom",
   },
 ];
 
