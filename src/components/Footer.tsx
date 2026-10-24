@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { CONTACT, IMAGES, NAV_LINKS } from "@/data/site";
 import { COURSES } from "@/data/courses";
-import logo from "@/assets/aci-logo.png.asset.json";
+import logo from "@/assets/aci-logo-hd.png.asset.json";
 
 const FOOTER_STRIP = [
   { icon: Award, label: "15 Years of Experience" },
@@ -96,7 +96,9 @@ export function Footer() {
             <img
               src={logo.url}
               alt="Ashadeep Computer Institute logo"
-              className="h-12 w-12 rounded-full object-cover"
+              width={512}
+              height={512}
+              className="h-14 w-14 rounded-full object-cover shadow-lg ring-2 ring-white/20 sm:h-16 sm:w-16"
               loading="lazy"
             />
             <span className="leading-tight">
