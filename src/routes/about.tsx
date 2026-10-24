@@ -1,4 +1,5 @@
 // About Us page: classroom photo, story, stats card and "Why Choose Us" list.
+// Sections alternate their scroll entrance (left / right / up / zoom).
 
 import { createFileRoute } from "@tanstack/react-router";
 import {
@@ -62,23 +63,25 @@ function AboutPage() {
       <PageHero title="About Us" crumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]} />
 
       <section className="container-site py-12 sm:py-16">
-        <Reveal>
+        <Reveal direction="left">
           <img
             src={IMAGES.aboutClassroom}
             alt="Classroom full of students learning on computers at Ashadeep Computer Institute"
             loading="lazy"
+            width={1920}
+            height={1080}
             className="aspect-video w-full rounded-3xl object-cover shadow-xl shadow-navy/10"
           />
         </Reveal>
 
-        <Reveal delay={100}>
+        <Reveal direction="right" delay={100}>
           <h2 className="section-title mt-10 max-w-3xl">
             Empowering Students Through Computer Education for{" "}
             <span className="text-brand">15 Years</span>
           </h2>
         </Reveal>
 
-        <Reveal delay={150}>
+        <Reveal direction="left" delay={150}>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             At Ashadeep Computer Institute, we believe that the right skills can open doors to new
             opportunities. For the past 15 years, we have been helping students and aspiring
@@ -88,7 +91,7 @@ function AboutPage() {
         </Reveal>
 
         {/* Stats card */}
-        <Reveal delay={200}>
+        <Reveal direction="zoom" delay={200}>
           <div className="mt-10 grid grid-cols-2 gap-6 rounded-3xl bg-tint p-6 sm:p-10">
             {STATS.map((stat) => (
               <div key={stat.label} className="flex items-center gap-4">
@@ -105,12 +108,12 @@ function AboutPage() {
         </Reveal>
 
         {/* Why choose us */}
-        <Reveal delay={100}>
+        <Reveal direction="right" delay={100}>
           <h3 className="section-title mt-14">Why Choose Us?</h3>
         </Reveal>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {WHY_US.map((item, i) => (
-            <Reveal key={item.label} delay={i * 60}>
+            <Reveal key={item.label} delay={i * 60} direction={i % 2 === 0 ? "left" : "right"}>
               <div className="flex items-center gap-4 rounded-2xl border border-border bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5">
                 <span className="icon-circle bg-tint text-brand">
                   <item.icon className="h-5 w-5" aria-hidden />

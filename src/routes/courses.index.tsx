@@ -1,4 +1,5 @@
 // Courses page: vertical list of pastel course cards linking to detail pages.
+// Cards slide in alternately from the left and right as you scroll.
 
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
@@ -35,12 +36,12 @@ function CoursesPage() {
       <PageHero title="Our Courses" crumbs={[{ label: "Home", to: "/" }, { label: "Courses" }]} />
 
       <section className="container-site py-12 sm:py-16">
-        <Reveal>
+        <Reveal direction="left">
           <h2 className="section-title">
             Build Skills That <span className="text-brand">Move You Forward</span>
           </h2>
         </Reveal>
-        <Reveal delay={100}>
+        <Reveal direction="right" delay={100}>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             From digital marketing and programming to accounting and analytics — we offer a range
             of computer and professional skill courses designed to make you confident, capable and
@@ -51,7 +52,7 @@ function CoursesPage() {
         {/* Course cards */}
         <div className="mt-10 space-y-4">
           {COURSES.map((course, i) => (
-            <Reveal key={course.slug} delay={i * 50}>
+            <Reveal key={course.slug} delay={i * 50} direction={i % 2 === 0 ? "left" : "right"}>
               <Link
                 to="/courses/$slug"
                 params={{ slug: course.slug }}
@@ -79,8 +80,12 @@ function CoursesPage() {
           ))}
         </div>
 
-        <Reveal delay={100}>
-          <Link to="/contact" search={{ course: "" }} className="btn-primary mt-10 w-full justify-center sm:w-auto">
+        <Reveal direction="up" delay={100}>
+          <Link
+            to="/contact"
+            search={{ course: "" }}
+            className="btn-primary mt-10 w-full justify-center sm:w-auto"
+          >
             Enquire for Course Details
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>

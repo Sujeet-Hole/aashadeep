@@ -123,7 +123,7 @@ function ContactPage() {
       <section className="container-site grid gap-10 py-12 sm:py-16 lg:grid-cols-2">
         {/* ---- Map + contact info ---- */}
         <div>
-          <Reveal>
+          <Reveal direction="left">
             <iframe
               title="Map showing the location of Ashadeep Computer Institute in Bhandup West, Mumbai"
               src={CONTACT.mapEmbed}
@@ -136,7 +136,7 @@ function ContactPage() {
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {INFO.map((item, i) => (
-              <Reveal key={item.label} delay={i * 60}>
+              <Reveal key={item.label} delay={i * 60} direction={i % 2 === 0 ? "up" : "right"}>
                 <div className="flex items-start gap-3 rounded-2xl bg-tint p-4 sm:p-5">
                   <span className="icon-circle bg-brand text-primary-foreground">
                     <item.icon className="h-5 w-5" aria-hidden />
@@ -163,7 +163,7 @@ function ContactPage() {
         </div>
 
         {/* ---- Enquiry form ---- */}
-        <Reveal delay={100}>
+        <Reveal direction="right" delay={100}>
           <div className="rounded-3xl border border-border bg-white p-6 shadow-xl shadow-navy/10 sm:p-8">
             {status === "success" ? (
               <div className="flex flex-col items-center py-10 text-center">

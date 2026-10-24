@@ -1,4 +1,5 @@
 // Course detail page: one reusable template rendered for every course.
+// Sections enter alternately from the left, right, top and with a zoom.
 
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
@@ -60,7 +61,7 @@ function CourseDetailPage() {
 
       <section className="container-site py-12 sm:py-16">
         {/* Pastel hero card */}
-        <Reveal>
+        <Reveal direction="left">
           <div className={`flex items-center gap-5 rounded-3xl ${course.tint} p-6 sm:gap-7 sm:p-10`}>
             <span className="icon-circle h-16 w-16 bg-white shadow-md sm:h-20 sm:w-20">
               <Icon className={`h-8 w-8 sm:h-10 sm:w-10 ${course.accent}`} aria-hidden />
@@ -76,7 +77,7 @@ function CourseDetailPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={100}>
+        <Reveal direction="zoom" delay={100}>
           <img
             src={course.image}
             alt={course.imageAlt}
@@ -86,13 +87,13 @@ function CourseDetailPage() {
         </Reveal>
 
         {/* What you will learn */}
-        <Reveal delay={100}>
+        <Reveal direction="right" delay={100}>
           <h3 className="section-title mt-12">What You Will Learn</h3>
         </Reveal>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {course.learn.map((item, i) => (
-            <Reveal key={item} delay={i * 40}>
-              <li className="flex items-start gap-3 rounded-2xl border border-border bg-white p-4 shadow-sm">
+            <Reveal key={item} delay={i * 40} direction={i % 2 === 0 ? "left" : "right"}>
+              <li className="flex h-full items-start gap-3 rounded-2xl border border-border bg-white p-4 shadow-sm">
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden />
                 <span className="text-sm font-medium text-navy">{item}</span>
               </li>
@@ -101,7 +102,7 @@ function CourseDetailPage() {
         </ul>
 
         {/* Who can join */}
-        <Reveal delay={100}>
+        <Reveal direction="left" delay={100}>
           <div className="mt-10 rounded-3xl bg-tint p-6 sm:p-8">
             <h3 className="text-xl font-extrabold text-navy sm:text-2xl">Who Can Join?</h3>
             <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
@@ -115,7 +116,7 @@ function CourseDetailPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={100}>
+        <Reveal direction="up" delay={100}>
           <Link
             to="/contact"
             search={{ course: course.title }}
