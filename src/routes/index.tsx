@@ -1,6 +1,7 @@
 // Home page: full-height navy hero with student photo, animated headline,
 // CTAs and highlight card.
 
+import type { CSSProperties } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, BadgeCheck, Laptop, Users, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
@@ -38,7 +39,7 @@ const HIGHLIGHTS: { icon: LucideIcon; label: string }[] = [
 ];
 
 /** Inline style helper for staggered text entrance delays. */
-const animDelay = (ms: number) => ({ "--anim-delay": `${ms}ms` }) as React.CSSProperties;
+const animDelay = (ms: number) => ({ "--anim-delay": `${ms}ms` }) as CSSProperties;
 
 function HomePage() {
   return (
