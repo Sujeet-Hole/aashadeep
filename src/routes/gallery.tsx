@@ -33,6 +33,9 @@ export const Route = createFileRoute("/gallery")({
 /** Photos alternate their entrance side for a lively scroll rhythm. */
 const DIRECTIONS: RevealDirection[] = ["left", "up", "right", "zoom"];
 
+/** Safe pick from DIRECTIONS for any index. */
+const directionFor = (i: number) => DIRECTIONS[i % DIRECTIONS.length] ?? "up";
+
 function GalleryPage() {
   const [filter, setFilter] = useState<(typeof GALLERY_FILTERS)[number]>("All");
   const [lightbox, setLightbox] = useState<GalleryPhoto | null>(null);
@@ -74,7 +77,7 @@ function GalleryPage() {
         {/* Photo grid — every photo uses the same 4:3 frame */}
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {photos.map((photo, i) => (
-            <Reveal key={photo.src} delay={(i % 4) * 60} direction={DIRECTIONS[i % DIRECTIONS.length]}>
+            <Reveal key={photo.src} delay={(i % 4) * 60} direction={directionFor(i)}>
               <button
                 type="button"
                 onClick={() => setLightbox(photo)}
