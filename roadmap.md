@@ -1,9 +1,9 @@
 # Roadmap
 
-- [ ] Full-width layout: container fills the laptop screen (no centered max-width)
-- [ ] Brighter look: lighter overlays, alternating light section backgrounds, softer shadows
-- [ ] Directional scroll animations: every section animates (left / right / up), text animations on heroes
-- [ ] Uniform image frames: same size + frame for all gallery photos (4:3) and section images
-- [ ] Remove repeated images: generate new HD images for hero, about, CTA, gallery (8 unique)
-- [ ] Enhance blurry logo, make it crisper and larger in header + footer; refresh favicon
-- [ ] Verify desktop (full width) + mobile views in preview
+- [x] Full-width layout: container fills the laptop screen (no centered max-width)
+- [x] Brighter look: lighter overlays, brighter hero, softer shadows
+- [x] Directional scroll animations: every section animates (left / right / up / zoom), text animations on heroes
+- [x] Uniform image frames: same 4:3 frame for all gallery photos, consistent section image frames
+- [x] No repeated images: 11 new HD generated images (hero, about, CTA, 8 gallery photos)
+- [x] Logo enhanced (crisp HD), larger in header + footer; favicon refreshed
+- [x] Verified desktop (full width) + mobile views in preview — no console errors
