@@ -1,4 +1,5 @@
 // MKCL partnership page: partner badge, story and checklist.
+// Sections zoom / slide in from alternating sides while scrolling.
 
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
@@ -45,7 +46,7 @@ function MkclPage() {
 
       <section className="container-site py-12 sm:py-16">
         {/* Partner badge card */}
-        <Reveal>
+        <Reveal direction="zoom">
           <div className="rounded-3xl border border-border bg-white p-8 text-center shadow-xl shadow-navy/5 sm:p-12">
             {/* MKCL wordmark */}
             <div
@@ -66,13 +67,13 @@ function MkclPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={100}>
+        <Reveal direction="left" delay={100}>
           <h2 className="section-title mt-12 max-w-3xl">
             Learning with a <span className="text-brand">Recognized Education Partner</span>
           </h2>
         </Reveal>
 
-        <Reveal delay={150}>
+        <Reveal direction="right" delay={150}>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             Ashadeep Computer Institute is an official partner of MKCL (Maharashtra Knowledge
             Corporation Limited). Our partnership reflects our commitment to accessible computer
@@ -81,7 +82,7 @@ function MkclPage() {
         </Reveal>
 
         {/* Checklist */}
-        <Reveal delay={200}>
+        <Reveal direction="up" delay={200}>
           <ul className="mt-10 grid gap-3 rounded-3xl bg-tint p-6 sm:grid-cols-2 sm:p-8">
             {CHECKLIST.map((item) => (
               <li key={item} className="flex items-center gap-3">

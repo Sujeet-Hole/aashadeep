@@ -59,7 +59,7 @@ function TestimonialsPage() {
       />
 
       <section className="container-site py-12 sm:py-16">
-        <Reveal>
+        <Reveal direction="zoom">
           <div className="overflow-hidden rounded-3xl">
             <div
               className="flex transition-transform duration-500 ease-out"
@@ -92,20 +92,22 @@ function TestimonialsPage() {
         </Reveal>
 
         {/* Pagination dots */}
-        <div className="mt-6 flex justify-center gap-2">
-          {TESTIMONIALS.map((t, i) => (
-            <button
-              key={t.name}
-              type="button"
-              aria-label={`Show testimonial ${i + 1} of ${TESTIMONIALS.length}`}
-              aria-current={i === index}
-              onClick={() => setIndex(i)}
-              className={`h-2.5 rounded-full transition-all ${
-                i === index ? "w-7 bg-brand" : "w-2.5 bg-navy/15 hover:bg-navy/30"
-              }`}
-            />
-          ))}
-        </div>
+        <Reveal direction="up" delay={150}>
+          <div className="mt-6 flex justify-center gap-2">
+            {TESTIMONIALS.map((t, i) => (
+              <button
+                key={t.name}
+                type="button"
+                aria-label={`Show testimonial ${i + 1} of ${TESTIMONIALS.length}`}
+                aria-current={i === index}
+                onClick={() => setIndex(i)}
+                className={`h-2.5 rounded-full transition-all ${
+                  i === index ? "w-7 bg-brand" : "w-2.5 bg-navy/15 hover:bg-navy/30"
+                }`}
+              />
+            ))}
+          </div>
+        </Reveal>
       </section>
     </>
   );

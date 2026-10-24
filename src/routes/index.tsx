@@ -1,5 +1,7 @@
-// Home page: navy hero with student photo, headline, CTAs and highlight card.
+// Home page: full-height navy hero with student photo, animated headline,
+// CTAs and highlight card.
 
+import type { CSSProperties } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, BadgeCheck, Laptop, Users, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
@@ -36,60 +38,66 @@ const HIGHLIGHTS: { icon: LucideIcon; label: string }[] = [
   { icon: Laptop, label: "Practical Skill-Based Learning" },
 ];
 
+/** Inline style helper for staggered text entrance delays. */
+const animDelay = (ms: number) => ({ "--anim-delay": `${ms}ms` }) as CSSProperties;
+
 function HomePage() {
   return (
     <>
-      {/* ---- Hero ---- */}
-      <section className="relative overflow-hidden bg-navy text-white">
+      {/* ---- Hero: fills the first screen on laptops and phones ---- */}
+      <section className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-navy text-white sm:min-h-[calc(100svh-6rem)]">
         <img
           src={IMAGES.hero}
           alt="Smiling young student learning at a computer in the Ashadeep lab"
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-55"
           loading="eager"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-navy/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/20" />
 
         <div className="container-site relative py-14 sm:py-20 lg:py-24">
-          <Reveal>
-            <p className="inline-flex max-w-full rounded-full border border-brand/50 bg-brand/15 px-4 py-1.5 text-center text-[10px] font-semibold uppercase tracking-widest text-brand-glow sm:text-xs">
-              15 Years of Learning, Skills &amp; Career Development in Bhandup
-            </p>
-          </Reveal>
+          <p
+            className="anim-rise inline-flex max-w-full rounded-full border border-brand/50 bg-brand/15 px-4 py-1.5 text-center text-[10px] font-semibold uppercase tracking-widest text-brand-glow sm:text-xs"
+            style={animDelay(0)}
+          >
+            15 Years of Learning, Skills &amp; Career Development in Bhandup
+          </p>
 
-          <Reveal delay={100}>
-            <h1 className="mt-6 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Learn Today.
-              <br />
-              <span className="text-brand-glow">Build Your Future.</span>
-            </h1>
-          </Reveal>
+          <h1
+            className="anim-rise mt-6 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
+            style={animDelay(150)}
+          >
+            Learn Today.
+            <br />
+            <span className="text-brand-glow">Build Your Future.</span>
+          </h1>
 
-          <Reveal delay={200}>
-            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
-              A trusted destination for computer education and professional skill development in
-              Bhandup, Mumbai. With 15 years of experience, we help students build practical
-              computer skills for education, employment and career growth.
-            </p>
-          </Reveal>
+          <p
+            className="anim-rise mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base"
+            style={animDelay(300)}
+          >
+            A trusted destination for computer education and professional skill development in
+            Bhandup, Mumbai. With 15 years of experience, we help students build practical
+            computer skills for education, employment and career growth.
+          </p>
 
-          <Reveal delay={300}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/courses" className="btn-primary">
-                Explore Our Courses
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link to="/contact" search={{ course: "" }} className="btn-outline-white">
-                Enquire for Admission
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </Reveal>
+          <div className="anim-rise mt-8 flex flex-col gap-3 sm:flex-row" style={animDelay(450)}>
+            <Link to="/courses" className="btn-primary">
+              Explore Our Courses
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link to="/contact" search={{ course: "" }} className="btn-outline-white">
+              Enquire for Admission
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
 
           {/* Floating highlights card */}
-          <Reveal delay={400}>
-            <div className="mt-12 grid max-w-xl grid-cols-2 gap-4 rounded-3xl bg-white p-5 text-navy shadow-2xl shadow-navy/40 sm:p-6 lg:mt-16">
+          <Reveal delay={200} direction="zoom" className="mt-12 lg:mt-16">
+            <div className="grid max-w-xl grid-cols-2 gap-4 rounded-3xl bg-white p-5 text-navy shadow-2xl shadow-navy/30 sm:p-6">
               {HIGHLIGHTS.map((item) => (
                 <div key={item.label} className="flex items-center gap-3">
                   <span className="icon-circle h-11 w-11 bg-tint text-brand">

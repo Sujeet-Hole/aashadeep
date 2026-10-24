@@ -4,29 +4,31 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/data/site";
-import logo from "@/assets/aci-logo.png.asset.json";
+import logo from "@/assets/aci-logo-hd.png.asset.json";
 
 export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white/95 shadow-sm backdrop-blur">
-      <div className="container-site flex h-16 items-center justify-between gap-3 sm:h-20">
+      <div className="container-site flex h-16 items-center justify-between gap-3 sm:h-24">
         {/* Logo + institute name */}
-        <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src={logo.url}
             alt="Ashadeep Computer Institute logo"
-            className="h-11 w-11 shrink-0 rounded-full object-cover shadow-sm sm:h-14 sm:w-14"
+            width={512}
+            height={512}
+            className="h-12 w-12 shrink-0 rounded-full object-cover shadow-md ring-2 ring-tint sm:h-16 sm:w-16"
           />
           <span className="min-w-0 leading-tight">
-            <span className="block truncate text-base font-extrabold tracking-wide text-navy sm:text-lg">
+            <span className="block truncate text-base font-extrabold tracking-wide text-navy sm:text-xl">
               ASHADEEP
             </span>
             <span className="block truncate text-[10px] font-bold tracking-[0.16em] text-brand sm:text-xs">
               COMPUTER INSTITUTE
             </span>
-            <span className="hidden text-[10px] text-muted-foreground sm:block">
+            <span className="hidden text-[11px] text-muted-foreground sm:block">
               Learn Today. Build Your Future.
             </span>
           </span>
