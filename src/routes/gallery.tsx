@@ -1,11 +1,12 @@
 // Gallery page: filter tabs, uniform photo grid and a simple lightbox.
 // Every photo shares the same 4:3 frame so the grid stays perfectly even.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, type RevealDirection } from "@/components/Reveal";
+import { CtaBand } from "@/components/CtaBand";
 import { GALLERY, GALLERY_FILTERS, type GalleryPhoto } from "@/data/site";
 
 export const Route = createFileRoute("/gallery")({
@@ -20,7 +21,8 @@ export const Route = createFileRoute("/gallery")({
       { property: "og:title", content: "Gallery — Ashadeep Computer Institute" },
       {
         property: "og:description",
-        content: "Photos from our classrooms, activities and student moments in Bhandup West, Mumbai.",
+        content:
+          "Photos from our classrooms, activities and student moments in Bhandup West, Mumbai.",
       },
       { property: "og:url", content: "/gallery" },
       { property: "og:type", content: "website" },
@@ -40,8 +42,15 @@ function GalleryPage() {
   const [filter, setFilter] = useState<(typeof GALLERY_FILTERS)[number]>("All");
   const [lightbox, setLightbox] = useState<GalleryPhoto | null>(null);
 
-  const photos =
-    filter === "All" ? GALLERY : GALLERY.filter((p) => p.category === filter);
+  // Escape closes the lightbox
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLightbox(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox]);
+
+  const photos = filter === "All" ? GALLERY : GALLERY.filter((p) => p.category === filter);
 
   return (
     <>
@@ -51,10 +60,14 @@ function GalleryPage() {
         crumbs={[{ label: "Home", to: "/" }, { label: "Gallery" }]}
       />
 
-      <section className="container-site py-12 sm:py-16">
+      <section className="container-site section-y">
         {/* Filter tabs */}
         <Reveal direction="left">
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Gallery filters">
+          <div
+            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0"
+            role="tablist"
+            aria-label="Gallery filters"
+          >
             {GALLERY_FILTERS.map((tab) => (
               <button
                 key={tab}
@@ -62,7 +75,7 @@ function GalleryPage() {
                 role="tab"
                 aria-selected={filter === tab}
                 onClick={() => setFilter(tab)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+                className={`min-h-11 shrink-0 rounded-full px-5 text-sm font-semibold transition-all ${
                   filter === tab
                     ? "bg-brand text-primary-foreground shadow-lg shadow-brand/25"
                     : "bg-tint text-navy hover:bg-brand/15"
@@ -108,6 +121,15 @@ function GalleryPage() {
           </a>
         </Reveal>
       </section>
+
+      <CtaBand
+        title={
+          <>
+            Be part of our next <span className="text-brand-glow">batch.</span>
+          </>
+        }
+        text="See our classrooms in person. Visit the institute or send an enquiry."
+      />
 
       {/* Lightbox */}
       {lightbox && (

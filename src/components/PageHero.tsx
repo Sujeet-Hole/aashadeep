@@ -1,55 +1,53 @@
 // Navy page-title bar with breadcrumb, used at the top of every inner page.
+// Optional `children` (e.g. buttons) and `aside` (a visual on wide screens) extend it.
 
-import type { CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
-import { ChevronRight } from "lucide-react";
-import type { AppRoute } from "@/data/site";
+import type { CSSProperties, ReactNode } from "react";
+import { Breadcrumb, type Crumb } from "@/components/Breadcrumb";
 
-export interface Crumb {
-  label: string;
-  to?: AppRoute;
-}
+export type { Crumb };
 
 interface PageHeroProps {
   title: string;
   subtitle?: string;
   crumbs: Crumb[];
+  children?: ReactNode;
+  aside?: ReactNode;
 }
 
-export function PageHero({ title, subtitle, crumbs }: PageHeroProps) {
+export function PageHero({ title, subtitle, crumbs, children, aside }: PageHeroProps) {
   return (
     <section className="bg-navy text-white">
-      <div className="container-site py-10 sm:py-14">
-        <div className="anim-slide-left">
-          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-xs sm:text-sm">
-            {crumbs.map((crumb, i) => (
-              <span key={i} className="flex items-center gap-1">
-                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-white/40" aria-hidden />}
-                {crumb.to ? (
-                  <Link to={crumb.to} className="font-semibold text-brand-glow hover:underline">
-                    {crumb.label}
-                  </Link>
-                ) : (
-                  <span className="text-white/85">{crumb.label}</span>
-                )}
-              </span>
-            ))}
-          </nav>
-        </div>
-        <h1
-          className="anim-rise mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
-          style={{ "--anim-delay": "120ms" } as CSSProperties}
-        >
-          {title}
-        </h1>
-        {subtitle && (
-          <p
-            className="anim-rise mt-2 max-w-2xl text-sm text-white/75 sm:text-base"
-            style={{ "--anim-delay": "240ms" } as CSSProperties}
+      <div
+        className={`container-site py-8 sm:py-12 ${aside ? "grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto]" : ""}`}
+      >
+        <div className="min-w-0">
+          <div className="anim-slide-left">
+            <Breadcrumb crumbs={crumbs} />
+          </div>
+          <h1
+            className="page-title anim-rise mt-3"
+            style={{ "--anim-delay": "120ms" } as CSSProperties}
           >
-            {subtitle}
-          </p>
-        )}
+            {title}
+          </h1>
+          {subtitle && (
+            <p
+              className="anim-rise mt-2 max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base"
+              style={{ "--anim-delay": "240ms" } as CSSProperties}
+            >
+              {subtitle}
+            </p>
+          )}
+          {children && (
+            <div
+              className="anim-rise mt-6 flex flex-col gap-3 sm:flex-row"
+              style={{ "--anim-delay": "360ms" } as CSSProperties}
+            >
+              {children}
+            </div>
+          )}
+        </div>
+        {aside}
       </div>
     </section>
   );

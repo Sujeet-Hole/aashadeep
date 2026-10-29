@@ -2,6 +2,15 @@
 // Photography is generated per-use and bundled locally — no image is reused
 // between sections, so every page shows unique visuals.
 
+import {
+  Award,
+  BadgeCheck,
+  HeartHandshake,
+  Laptop,
+  Target,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import heroHome from "@/assets/hero-home.jpg";
 import aboutClassroom from "@/assets/about-classroom.jpg";
 import ctaCelebration from "@/assets/cta-celebration.jpg";
@@ -23,25 +32,20 @@ export const TAGLINE = "Learn Today. Build Your Future.";
 export const CONTACT = {
   address:
     "Shop No. 06, Hit Niketan Co-operative Housing Society, near Jaoli Bank, Kokan Nagar, Bhandup West, Mumbai, Maharashtra",
+  /** Shorter form of `address` for the footer and FAQs. */
+  addressShort: "Shop No. 06, Hit Niketan CHS, Kokan Nagar, Bhandup West, Mumbai",
   phoneDisplay: "+91 98765 43210",
   phoneHref: "tel:+919876543210",
   email: "info@ashadeepinstitute.in",
   emailHref: "mailto:info@ashadeepinstitute.in",
   hours: "Mon – Sat: 9:00 AM – 8:00 PM",
   whatsapp: "https://wa.me/919876543210",
-  mapEmbed:
-    "https://www.google.com/maps?q=Bhandup+West,+Mumbai,+Maharashtra&z=15&output=embed",
+  mapEmbed: "https://www.google.com/maps?q=Bhandup+West,+Mumbai,+Maharashtra&z=15&output=embed",
 };
 
 /** Route paths used across the site (kept as a union so <Link> type-checks). */
 export type AppRoute =
-  | "/"
-  | "/about"
-  | "/courses"
-  | "/mkcl"
-  | "/gallery"
-  | "/testimonials"
-  | "/contact";
+  "/" | "/about" | "/courses" | "/mkcl" | "/gallery" | "/testimonials" | "/contact";
 
 export const NAV_LINKS: { label: string; to: AppRoute }[] = [
   { label: "Home", to: "/" },
@@ -54,6 +58,12 @@ export const NAV_LINKS: { label: string; to: AppRoute }[] = [
 ];
 
 export const IMAGES = {
+  /** Teacher guiding a student during a practical session. */
+  teaching: gallery2,
+  /** Students collaborating around a laptop. */
+  collaboration: gallery5,
+  /** Certificate ceremony. */
+  ceremony: gallery3,
   /** Student working happily at a computer in a bright lab (home hero). */
   hero: heroHome,
   /** Classroom full of students at computers (about page). */
@@ -155,4 +165,27 @@ export const TESTIMONIALS: Testimonial[] = [
       "The Tally Prime course with GST gave me the confidence to handle accounts independently. Great teaching and real practice on live examples.",
     photo: unsplash("photo-1472099645785-5658abf4ff4e", 200),
   },
+];
+
+/* ------------------------- Shared "why us" and process ------------------------- */
+
+/** Strengths already stated on the About page, reused on the Home page. */
+export const WHY_US: { icon: LucideIcon; label: string }[] = [
+  { icon: Award, label: "15 Years of Experience" },
+  { icon: BadgeCheck, label: "Official MKCL Partnership" },
+  { icon: Users, label: "Expert Teachers and Trainers" },
+  { icon: Laptop, label: "Practical Skill-Based Learning" },
+  { icon: Target, label: "Career-Oriented Training Programs" },
+  { icon: HeartHandshake, label: "Supportive Learning Environment" },
+];
+
+/** How a learner gets started, following the site's own enquiry flow. */
+export const GETTING_STARTED: { title: string; text: string }[] = [
+  { title: "Explore courses", text: "Browse by category and read what each course covers." },
+  {
+    title: "Send an enquiry",
+    text: "Use the enquiry form, call or WhatsApp us, or visit the institute.",
+  },
+  { title: "Talk to our team", text: "We contact you with the course details." },
+  { title: "Start learning", text: "Build practical skills with guidance from our teachers." },
 ];

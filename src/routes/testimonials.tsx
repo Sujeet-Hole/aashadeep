@@ -5,6 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
+import { CtaBand } from "@/components/CtaBand";
 import { TESTIMONIALS } from "@/data/site";
 
 export const Route = createFileRoute("/testimonials")({
@@ -58,7 +59,7 @@ function TestimonialsPage() {
         crumbs={[{ label: "Home", to: "/" }, { label: "Testimonials" }]}
       />
 
-      <section className="container-site py-12 sm:py-16">
+      <section className="container-site section-y">
         <Reveal direction="zoom">
           <div className="overflow-hidden rounded-3xl">
             <div
@@ -109,6 +110,15 @@ function TestimonialsPage() {
           </div>
         </Reveal>
       </section>
+
+      <CtaBand
+        title={
+          <>
+            Start your own <span className="text-brand-glow">success story.</span>
+          </>
+        }
+        text="Choose a course and send an enquiry. Our team will contact you with the details."
+      />
     </>
   );
 }

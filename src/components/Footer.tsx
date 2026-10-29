@@ -1,32 +1,24 @@
-// Global footer: navy CTA section, floating highlights strip, link columns,
-// social icons and the bottom bar. Also exports the floating WhatsApp button.
+// Global compact footer: brand + contact, quick links, course links, socials and a slim bottom bar.
+// Each page ends with its own <CtaBand />, so the footer no longer carries a full-height CTA
+// section or highlights strip. Also exports the floating WhatsApp button.
 
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  Award,
-  BadgeCheck,
+  Clock,
   Facebook,
   Instagram,
-  Laptop,
+  Mail,
+  MapPin,
   MessageCircle,
   Phone,
-  TrendingUp,
-  Users,
   Youtube,
 } from "lucide-react";
-import { CONTACT, IMAGES, NAV_LINKS } from "@/data/site";
+import { CONTACT, NAV_LINKS } from "@/data/site";
 import { COURSES } from "@/data/courses";
-import logo from "@/assets/aci-logo-hd.png.asset.json";
+import logo from "@/assets/aci-logo.png";
 
-const FOOTER_STRIP = [
-  { icon: Award, label: "15 Years of Experience" },
-  { icon: BadgeCheck, label: "MKCL Partner" },
-  { icon: Users, label: "Expert Teachers" },
-  { icon: Laptop, label: "Practical Learning" },
-  { icon: TrendingUp, label: "Career Growth" },
-];
-
+/** Instagram, YouTube and Facebook still point to "#": add the real page URLs here. */
 const SOCIALS = [
   { label: "WhatsApp", href: CONTACT.whatsapp, icon: MessageCircle },
   { label: "Instagram", href: "#", icon: Instagram },
@@ -34,71 +26,24 @@ const SOCIALS = [
   { label: "Facebook", href: "#", icon: Facebook },
 ];
 
+const linkClass = "text-xs text-white/70 transition-colors hover:text-brand-glow sm:text-sm";
+const headingClass = "text-xs font-bold uppercase tracking-widest text-white/90";
+
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-navy text-white">
-      {/* ---- CTA section ---- */}
-      <section className="relative overflow-hidden">
-        <img
-          src={IMAGES.ctaBackground}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-25"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/85 to-navy" />
-        <div className="container-site relative pb-20 pt-14 text-center sm:pb-24 sm:pt-16">
-          <p className="inline-flex rounded-full border border-brand/50 bg-brand/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-brand-glow sm:text-xs">
-            Start Your Learning Journey Today
-          </p>
-          <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-            Your Future Starts with the <span className="text-brand-glow">Right Skills.</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
-            Take the next step towards learning, career development and digital confidence with
-            Ashadeep Computer Institute.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/contact" search={{ course: "" }} className="btn-primary">
-              Enquire for Admission
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <a href={CONTACT.phoneHref} className="btn-outline-white">
-              <Phone className="h-4 w-4" aria-hidden />
-              Call Now
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ---- Floating highlights strip ---- */}
-      <div className="container-site relative z-10 -mt-10 sm:-mt-12">
-        <div className="grid grid-cols-2 gap-3 rounded-3xl bg-white p-4 text-navy shadow-2xl shadow-navy/30 sm:grid-cols-5 sm:gap-4 sm:p-6">
-          {FOOTER_STRIP.map((item, i) => (
-            <div
-              key={item.label}
-              className={`flex items-center gap-3 ${i === FOOTER_STRIP.length - 1 ? "col-span-2 sm:col-span-1" : ""}`}
-            >
-              <span className="icon-circle h-10 w-10 bg-tint text-brand sm:h-12 sm:w-12">
-                <item.icon className="h-5 w-5" aria-hidden />
-              </span>
-              <span className="text-xs font-semibold leading-snug sm:text-sm">{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ---- Footer columns ---- */}
-      <div className="container-site grid gap-10 pb-10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container-site grid gap-x-8 gap-y-6 py-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.7fr_1.5fr_1.2fr] lg:gap-x-10 lg:py-10">
         {/* Brand */}
         <div>
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logo.url}
+              src={logo}
               alt="Ashadeep Computer Institute logo"
-              width={512}
-              height={512}
-              className="h-14 w-14 rounded-full object-cover shadow-lg ring-2 ring-white/20 sm:h-16 sm:w-16"
+              width={256}
+              height={256}
+              className="h-12 w-12 shrink-0 rounded-full object-cover shadow-lg ring-2 ring-white/20"
               loading="lazy"
             />
             <span className="leading-tight">
@@ -108,22 +53,23 @@ export function Footer() {
               </span>
             </span>
           </Link>
-          <p className="mt-4 text-sm text-white/70">
-            Learn Today. Build Your Future. A trusted destination for computer education in
-            Bhandup, Mumbai — for 15 years and counting.
+          <p className="mt-3 max-w-xs text-xs leading-relaxed text-white/70 sm:text-sm">
+            Learn Today. Build Your Future. Computer education in Bhandup, Mumbai for 15 years, and
+            an official MKCL partner.
           </p>
+          <Link to="/contact" search={{ course: "" }} className="btn-primary mt-4 !px-5 !py-2.5">
+            Enquire Now
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
 
         {/* Quick links */}
         <nav aria-label="Quick links">
-          <h3 className="text-sm font-bold uppercase tracking-widest text-white/90">Quick Links</h3>
-          <ul className="mt-4 space-y-2.5">
+          <h3 className={headingClass}>Quick Links</h3>
+          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-1">
             {NAV_LINKS.filter((l) => l.label !== "Testimonials").map((link) => (
               <li key={link.to}>
-                <Link
-                  to={link.to}
-                  className="text-sm text-white/70 transition-colors hover:text-brand-glow"
-                >
+                <Link to={link.to} className={linkClass}>
                   {link.label}
                 </Link>
               </li>
@@ -133,14 +79,14 @@ export function Footer() {
 
         {/* Courses */}
         <nav aria-label="Our courses">
-          <h3 className="text-sm font-bold uppercase tracking-widest text-white/90">Our Courses</h3>
-          <ul className="mt-4 space-y-2.5">
+          <h3 className={headingClass}>Our Courses</h3>
+          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
             {COURSES.map((course) => (
-              <li key={course.slug}>
+              <li key={course.slug} className="min-w-0">
                 <Link
                   to="/courses/$slug"
                   params={{ slug: course.slug }}
-                  className="text-sm text-white/70 transition-colors hover:text-brand-glow"
+                  className={`${linkClass} block break-words`}
                 >
                   {course.title}
                 </Link>
@@ -149,35 +95,51 @@ export function Footer() {
           </ul>
         </nav>
 
-        {/* Socials */}
-        <div>
-          <h3 className="text-sm font-bold uppercase tracking-widest text-white/90">Follow Us</h3>
-          <div className="mt-4 flex gap-3">
+        {/* Contact + socials */}
+        <div className="min-w-0">
+          <h3 className={headingClass}>Contact</h3>
+          <ul className="mt-3 space-y-2 text-xs text-white/70 sm:text-sm">
+            <li className="flex items-start gap-2">
+              <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-glow" aria-hidden />
+              <a href={CONTACT.phoneHref} className="hover:text-brand-glow">
+                {CONTACT.phoneDisplay}
+              </a>
+            </li>
+            <li className="flex items-start gap-2">
+              <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-glow" aria-hidden />
+              <a href={CONTACT.emailHref} className="min-w-0 break-all hover:text-brand-glow">
+                {CONTACT.email}
+              </a>
+            </li>
+            <li className="flex items-start gap-2">
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-glow" aria-hidden />
+              <span>{CONTACT.addressShort}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-glow" aria-hidden />
+              <span>{CONTACT.hours}</span>
+            </li>
+          </ul>
+          <div className="mt-3 flex gap-2">
             {SOCIALS.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
+                {...(social.href === "#" ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
               >
-                <social.icon className="h-5 w-5" aria-hidden />
+                <social.icon className="h-4 w-4" aria-hidden />
               </a>
             ))}
           </div>
-          <p className="mt-4 text-xs leading-relaxed text-white/60">
-            Mon – Sat: 9:00 AM – 8:00 PM
-            <br />
-            Bhandup West, Mumbai
-          </p>
         </div>
       </div>
 
-      {/* ---- Bottom bar ---- */}
+      {/* Bottom bar. Right padding on phones keeps text clear of the floating WhatsApp button. */}
       <div className="border-t border-white/10">
-        <div className="container-site flex flex-col items-center justify-between gap-2 py-5 text-center text-xs text-white/60 sm:flex-row sm:text-left">
-          <p>© 2024 Ashadeep Computer Institute. All Rights Reserved.</p>
+        <div className="container-site flex flex-col gap-0.5 py-3 text-[11px] text-white/60 max-sm:pr-16 sm:flex-row sm:items-center sm:justify-between sm:text-xs">
+          <p>© {year} Ashadeep Computer Institute. All Rights Reserved.</p>
           <p>Designed with ❤️ for Learners in Bhandup, Mumbai.</p>
         </div>
       </div>
@@ -193,9 +155,9 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-xl shadow-brand/40 transition-transform hover:scale-110"
+      className="fixed bottom-4 right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand text-primary-foreground shadow-xl shadow-brand/40 transition-transform hover:scale-110 sm:bottom-5 sm:right-5 sm:h-14 sm:w-14"
     >
-      <MessageCircle className="h-7 w-7" aria-hidden />
+      <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden />
       <span className="absolute -right-0.5 -top-0.5 h-3.5 w-3.5 rounded-full bg-brand-glow ring-2 ring-white" />
     </a>
   );
